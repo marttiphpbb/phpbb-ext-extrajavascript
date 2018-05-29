@@ -1,0 +1,55 @@
+{%- extends 'base.html' -%}
+
+{%- block title -%}
+	{{- lang('ACP_MARTTIPHPBB_EXTRAJAVASCRIPT_FILES') -}}
+{%- endblock title -%}
+
+{%- block form_content -%}
+	<fieldset>
+		<table class="table1 zebra-table">
+		<thead>
+		<tr>
+			<th>{{- lang('ACP_MARTTIPHPBB_EXTRAJAVASCRIPT_FILE_NAME') -}}</th>
+			<th>{{- lang('ACP_MARTTIPHPBB_EXTRAJAVASCRIPT_FILE_SIZE') -}}</th>
+			<th>{{- lang('ACP_MARTTIPHPBB_EXTRAJAVASCRIPT_FILE_DELETE') -}}</th>
+		</tr>
+		</thead>
+		<tbody>
+		{%- for s in files -%}
+			<tr>
+				<td>
+					<a href="{{- s.U_EDIT -}}">
+						{{- s.NAME -}}
+					</a>
+				</td>
+				<td>
+					{{- s.SIZE -}}
+				</td>
+				<td>
+					<button class="button2" type="submit" name="delete[{{- s.NAME -}}]" title="{{- s.DELETE_FILE_NAME -}}">
+						<i class="fa fa-times"></i>
+					</button>
+				</td>
+			</tr>
+		{%- else -%}
+			<tr class="row3">
+				<td colspan="4">
+					{{- lang('ACP_NO_ITEMS') -}}
+				</td>
+			</tr>
+		{%- endfor -%}
+		</tbody>
+		</table>
+		<p>
+		<dl>
+			<input type="text" class="text medium" id="new_file" name="new_file" value="{{- NEW_FILE -}}" maxlength="100">
+			<input class="button2" type="submit" id="create" name="create" value="{{- lang('ACP_MARTTIPHPBB_EXTRAJAVASCRIPT_FILE_CREATE') -}}">
+			<p>{{- lang('ACP_MARTTIPHPBB_EXTRAJAVASCRIPT_FILE_NAME_RULES') -}}</p>
+ 		</dl>
+		</p>
+	</fieldset>
+	{%- INCLUDEJS '@marttiphpbb_extrajavascript/js/editor.js' -%}
+{%- endblock form_content -%}
+
+
+

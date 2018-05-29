@@ -1,0 +1,15 @@
+{%- include 'overall_header.html' -%}
+
+<h1>{%- block title -%}{%- endblock -%}</h1>
+{%- block explain -%}{%- endblock -%}
+
+{%- block content -%}
+<form method="post" action="{{- U_ACTION -}}">
+
+	{%- block form_content -%}{%- endblock -%}
+
+	{{- S_FORM_TOKEN -}}
+</form>
+{%- endblock content -%}
+
+{%- include 'overall_footer.html' -%}

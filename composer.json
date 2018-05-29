@@ -1,0 +1,32 @@
+{
+	"name": "marttiphpbb/extrajavascript",
+	"type": "phpbb-extension",
+	"description": "Extra Javascript Extension for phpBB 3.2",
+	"homepage": "https://github.com/marttiphpbb/phpbb-ext-extrajavascript",
+	"version": "0.1.0",
+	"time": "2018-05-29",
+	"license": "GPL-2.0",
+	"authors": [{
+			"name": "martti",
+			"email": "info@martti.be",
+			"homepage": "https://github.com/marttiphpbb/",
+			"role": "Developer"
+		}],
+	"require": {
+		"php": ">=7"
+	},
+	"require-dev": {
+
+	},
+	"extra": {
+		"display-name": "Extra Javascript",
+		"soft-require": {
+			"phpbb/phpbb": ">=3.2,<3.3"
+		},
+		"version-check": {
+			"host": "marttiphpbb.github.io",
+			"directory": "/version",
+			"filename": "extrajavascript.json"
+		}
+	}
+}

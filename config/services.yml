@@ -1,0 +1,21 @@
+services:
+    marttiphpbb.extrajavascript.service.store:
+        class: marttiphpbb\extrajavascript\service\store
+        arguments:
+            - '@config_text'
+            - '@cache.driver'
+
+    marttiphpbb.extrajavascript.event.listener:
+        class: marttiphpbb\extrajavascript\event\listener
+        arguments:
+            - '@controller.helper'
+            - '@marttiphpbb.extrajavascript.service.store'
+        tags:
+            - { name: event.listener }
+      
+    marttiphpbb.extrajavascript.controller:
+        class: marttiphpbb\extrajavascript\controller\main
+        arguments:
+            - '@marttiphpbb.extrajavascript.service.store'
+            - '@request'
+

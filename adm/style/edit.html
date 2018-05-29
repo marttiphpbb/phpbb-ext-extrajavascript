@@ -1,0 +1,58 @@
+{%- extends 'base.html' -%}
+
+{%- block title -%}
+	{{- lang('ACP_MARTTIPHPBB_EXTRAJAVASCRIPT_EDIT') }} {{ lang('COLON') }} {{ FILE_NAME -}}
+{%- endblock title -%}
+
+{%- block content -%}
+<fieldset>
+<form method="get">
+	<dl>
+
+		<dt>
+			<label for="file_id">
+				{{- lang('ACP_MARTTIPHPBB_EXTRAJAVASCRIPT_FILE') -}}
+			</label>
+		</dt>
+		<dd>
+			<select id="file_id" name="file_id">
+				{%- for s in files -%}
+					<option value="{{- s.NAME -}}"{%- if s.S_SELECTED %} selected="selected"{%- endif -%}>
+						{{- s.NAME -}}
+					</option>
+				{%- endfor -%}
+			</select>
+		</dd>
+	</dl>
+	{{- S_HIDDEN_FIELDS_GET -}}
+</form>
+</fieldset>
+<form method="post" action="{{- U_ACTION -}}">
+<fieldset>
+
+	<dl>
+		<dt><label for="script_names">{{- lang('ACP_MARTTIPHPBB_EXTRAJAVASCRIPT_SCRIPT_NAMES') -}}</label>
+		<br>
+			{{- lang('ACP_MARTTIPHPBB_EXTRAJAVASCRIPT_SCRIPT_NAMES_EXPLAIN') -}}
+		</dt>
+		<dd>
+		<input type="text" name="script_names" id="script_names" value="{{- SCRIPT_NAMES -}}" size="72">
+		</dd>
+	</dl>
+
+	<textarea name="file_content" id="file_content" cols="80" rows="10"{{- marttiphpbb_codemirror.data_attr ?? '' -}}>
+		{{- FILE_CONTENT -}}
+	</textarea>
+
+</fieldset>
+<fieldset class="submit-buttons">
+	{{- S_HIDDEN_FIELDS -}}
+	<input class="button1" id="save" type="submit" name="save" value="{{- lang('ACP_MARTTIPHPBB_EXTRAJAVASCRIPT_SAVE') -}}">
+	<input class="button2" type="reset" id="reset" name="reset" value="{{- lang('RESET') -}}">	
+
+	{{- S_FORM_TOKEN -}}
+
+</fieldset>
+</form>
+{%- INCLUDEJS '@marttiphpbb_extrajavascript/js/editor.js' -%}
+{%- endblock content -%}
