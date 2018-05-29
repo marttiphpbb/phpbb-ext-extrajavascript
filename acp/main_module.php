@@ -60,18 +60,14 @@ class main_module
 				if ($request->is_set_post('save'))
 				{
 					$file_id = $request->variable('file_id', '');
-					$file_content = utf8_normalize_nfc($request->variable('file_content', '', true));
-					$file_content = htmlspecialchars_decode($file_content);
-		
+					$file_content = $request->variable('file_content', '', true);		
 					$script_names = $request->variable('script_names', '');
 					$script_names = strtolower($script_names);
 
 					if (confirm_box(true))
 					{
 						$script_names = str_replace([' ', '.php'], '', $script_names);
-						$store->set_file($file_id, crc32($file_content), $script_names, $file_content);			
-						$script_names = explode(',', $script_names);
-						$store->set_script_names($file_id, $script_names);
+						$store->set_file($file_id, crc32($file_content), $script_names, $file_content);				
 						trigger_error(sprintf($language->lang('ACP_MARTTIPHPBB_EXTRAJAVASCRIPT_FILE_SAVED'), $file) . adm_back_link($this->u_action . '&amp;filename=' . $file));
 					}
 
@@ -106,12 +102,12 @@ class main_module
 				parse_str(parse_url(html_entity_decode($this->u_action), PHP_URL_QUERY), $query);
 
 				$s_hidden_fields = [
-					'file_id'	=> $file_id,
+					'file_id'	=> $request_file_id,
 				];
 
 				$template->assign_vars([
 					'S_HIDDEN_FIELDS'		=> build_hidden_fields($s_hidden_fields),
-					'FILE_NAME'			=> $request_file_id,
+					'FILE_NAME'				=> $request_file_id,
 					'SCRIPT_NAMES'			=> $files[$request_file_id]['script_names'],
 					'FILE_CONTENT'			=> $files[$request_file_id]['content'],
 					'S_HIDDEN_FIELDS_GET'	=> build_hidden_fields($query),

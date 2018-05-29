@@ -50,17 +50,15 @@ class listener implements EventSubscriberInterface
 		$file_ids = $this->store->get_load_files($context['SCRIPT_NAME']);
 		$files = [];
 
-		foreach ($file_ids as $file_id)
+		foreach ($file_ids as $file_id => $version)
 		{
 			$params = [
 				'id'		=> $file_id,
-				'v'			=> $this->store->get_file_version($file_id),	
+				'v'			=> $version,	
 			];
 
 			$files[] = $this->helper->route('marttiphpbb_extrajavascript_render_controller', $params);
 		}
-
-		var_dump($files);
 
 		$context['marttiphpbb_extrajavascript'] = $files;
 		$event['context'] = $context;

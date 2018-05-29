@@ -45,8 +45,20 @@ class store
 		{
 			return;
 		}
+
+		$data = $this->config_text->get(self::KEY);
+
+		if (!$data)
+		{
+			$this->data = [
+				'files' 	=> [],
+				'load'		=> [],
+			];
+
+			return;
+		}
 		
-		$this->data = unserialize($this->config_text->get(self::KEY));
+		$this->data = unserialize($data);
 		$this->cache->put(self::CACHE_KEY, $this->data);
 	}
 
@@ -67,11 +79,6 @@ class store
 		return  '';
 	}
 
-	public function get_file_version(string $id):string 
-	{
-		return $this->data['files'][$id]['version'] ?? '';
-	}
-
 	public function set_file(string $id, string $version, string $script_names, string $content)
 	{
 		$this->load();
@@ -80,7 +87,7 @@ class store
 			'version'	=> $version,
 			'script_names' => $script_names,
 		];
-		$this->write();
+		$this->refresh_script_names();
 	}
 
 	public function get_all_files():array 
@@ -91,22 +98,9 @@ class store
 
 	public function delete_file(string $id)
 	{
-		$this->load();
-	
+		$this->load();	
 		unset($this->data['files'][$id]);
-
-		foreach($this->data['load'] as $script_name => $id_ary)
-		{
-			foreach ($id_ary as $key => $n)
-			{
-				if ($n === $id)
-				{
-					unset($this->data['load'][$script_name][$key]);
-				}
-			}
-		}
-
-		$this->write();
+		$this->refresh_script_names();
 	}
 
 	public function get_load_files(string $script_name):array
@@ -115,41 +109,19 @@ class store
 		return $this->data['load'][$script_name] ?? [];
 	}
 
-	public function set_script_names(string $file_id, array $script_names)
+	public function refresh_script_names()
 	{
 		$this->load();
 
-		foreach ($script_names as $script_name)
+		$this->data['load'] = [];
+
+		foreach ($this->data['files'] as $id => $ary)
 		{
-			if (isset($this->data['load'][$script_name]))
+			$script_names = explode(',', $ary['script_names']);
+	
+			foreach ($script_names as $script_name)
 			{
-				foreach($this->data['load'][$script_name] as $f_id)
-				{
-					if ($f_id === $file_id)
-					{
-						// already stored.
-						continue;
-					}
-				}
-
-				array_push($this->data['load'][$script_name], $file_id);
-
-				continue;
-			}
-
-			$this->data['load'][$script_name] = [$file_id];
-		}
-
-		// cleanup
-		foreach($this->data['load'] as $script_name => $file_ids)
-		{
-			if (in_array($file_id, $file_ids))
-			{
-				if (!in_array($script_name, $script_names))
-				{
-					$key = array_search($file_id, $file_ids);
-					unset($this->data['load'][$script_name][$key]);
-				}
+				$this->data['load'][$script_name][$id] = $ary['version'];
 			}
 		}
 
