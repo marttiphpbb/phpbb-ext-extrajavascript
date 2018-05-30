@@ -60,8 +60,10 @@ class main_module
 				if ($request->is_set_post('save'))
 				{
 					$file_id = $request->variable('file_id', '');
-					$file_content = $request->variable('file_content', '', true);
-					$file_content = html_entity_decode($file_content, ENT_NOQUOTES | ENT_HTML5);
+					$file_content = $request->variable('file_content', '');
+					error_log($file_content);
+					$file_content = html_entity_decode($file_content, ENT_COMPAT | ENT_HTML5);
+					error_log($file_content);
 					$script_names = $request->variable('script_names', '');
 					$script_names = strtolower($script_names);
 
@@ -74,7 +76,7 @@ class main_module
 
 					$s_hidden_fields = [
 						'file_id'		=> $file_id,
-						'file_content' 	=> $file_content,
+						'file_content' 	=> htmlentities($file_content, ENT_COMPAT | ENT_HTML5),
 						'script_names'	=> $script_names,
 						'mode'			=> 'edit',
 						'save'			=> 1,
