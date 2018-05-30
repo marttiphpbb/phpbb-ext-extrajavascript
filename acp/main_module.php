@@ -61,7 +61,7 @@ class main_module
 				{
 					$file_id = $request->variable('file_id', '');
 					$file_content = $request->variable('file_content', '', true);
-					$file_content = html_entity_decode($file_content, ENT_QUOTES | ENT_HTML5);
+					$file_content = html_entity_decode($file_content, ENT_NOQUOTES | ENT_HTML5);
 					$script_names = $request->variable('script_names', '');
 					$script_names = strtolower($script_names);
 
