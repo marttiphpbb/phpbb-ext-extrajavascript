@@ -4,7 +4,7 @@
 
 ## Requirements
 
-* phpBB 3.2+
+* phpBB 3.2.1+
 * PHP 7+
 * the extension [marttiphpbb/codemirror](https://github.com/marttiphpbb/phpbb-ext-codemirror)
 
