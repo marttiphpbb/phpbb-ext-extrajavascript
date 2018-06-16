@@ -11,20 +11,13 @@ namespace marttiphpbb\extrajavascript\controller;
 use phpbb\request\request;
 use phpbb\controller\helper;
 use marttiphpbb\extrajavascript\service\store;
-
 use Symfony\Component\HttpFoundation\Response;
 
 class main
 {
-	/** @var store */
 	protected $store;
-
-	/** @var request */
 	protected $request;
 
-	/**
-	* @param store $store
-	*/
 	public function __construct(
 		store $store,
 		request $request
@@ -34,10 +27,6 @@ class main
 		$this->request = $request;
 	}
 
-	/**
-	* @param string   $id
-	* @return Response
-	*/
 	public function render(string $id):Response
 	{
 		$version = $this->request->variable('v', '');

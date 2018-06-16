@@ -30,9 +30,9 @@ class main_module
 		switch($mode)
 		{
 			case 'edit':
-	
+
 				$this->tpl_name = 'edit';
-				$this->page_title = $language->lang('ACP_MARTTIPHPBB_EXTRAJAVASCRIPT_EDIT');
+				$this->page_title = $language->lang(cnst::L_ACP . '_EDIT');
 
 				$request_file_id = $request->variable('file_id', '', true);
 				$files = $store->get_all_files();
@@ -52,11 +52,11 @@ class main_module
 				if (!isset($files[$request_file_id]))
 				{
 					trigger_error($language->lang(
-						cnst::L_ACP . '_FILE_DOES_NOT_EXIST', 
+						cnst::L_ACP . '_FILE_DOES_NOT_EXIST',
 							$request_file_id),
-								E_USER_WARNING);					
+								E_USER_WARNING);
 				}
-				
+
 				if ($request->is_set_post('save'))
 				{
 					$file_id = $request->variable('file_id', '');
@@ -68,8 +68,8 @@ class main_module
 					if (confirm_box(true))
 					{
 						$script_names = str_replace([' ', '.php'], '', $script_names);
-						$store->set_file($file_id, crc32($file_content), $script_names, $file_content);				
-						trigger_error(sprintf($language->lang('ACP_MARTTIPHPBB_EXTRAJAVASCRIPT_FILE_SAVED'), $file) . adm_back_link($this->u_action . '&amp;filename=' . $file));
+						$store->set_file($file_id, crc32($file_content), $script_names, $file_content);
+						trigger_error(sprintf($language->lang(cnst::L_ACP . '_FILE_SAVED'), $file) . adm_back_link($this->u_action . '&amp;filename=' . $file));
 					}
 
 					$s_hidden_fields = [
@@ -80,7 +80,7 @@ class main_module
 						'save'			=> 1,
 					];
 
-					confirm_box(false, sprintf($language->lang('ACP_MARTTIPHPBB_EXTRAJAVASCRIPT_SAVE_CONFIRM'), $file_id), build_hidden_fields($s_hidden_fields));
+					confirm_box(false, sprintf($language->lang(cnst::L_ACP . '_SAVE_CONFIRM'), $file_id), build_hidden_fields($s_hidden_fields));
 				}
 
 				foreach ($files as $file_id => $data)
@@ -88,11 +88,11 @@ class main_module
 					$template->assign_block_vars('files', [
 						'S_SELECTED'	=> $request_file_id === $file_id,
 						'NAME'			=> $file_id,
-					]);				
+					]);
 				}
 
 				$codemirror_enabled = $ext_manager->is_enabled('marttiphpbb/codemirror');
-		 
+
 				if ($codemirror_enabled)
 				{
 					$load = $phpbb_container->get('marttiphpbb.codemirror.load');
@@ -121,7 +121,7 @@ class main_module
 				$this->tpl_name = 'files';
 				$this->page_title = $language->lang('ACP_MARTTIPHPBB_EXTRAJAVASCRIPT_FILES');
 
-				$files = $store->get_all_files(); 
+				$files = $store->get_all_files();
 
 				$new_file = $request->variable('new_file', '');
 				$file_to_delete = array_keys($request->variable('delete', array('' => '')));
@@ -137,26 +137,26 @@ class main_module
 					if (!$new_file)
 					{
 						trigger_error(
-							$language->lang('ACP_MARTTIPHPBB_EXTRAJAVASCRIPT_FILE_NAME_EMPTY') . 
-								adm_back_link($this->u_action), 
+							$language->lang('ACP_MARTTIPHPBB_EXTRAJAVASCRIPT_FILE_NAME_EMPTY') .
+								adm_back_link($this->u_action),
 									E_USER_WARNING);
 					}
 
 					if (in_array($new_file, array_keys($files)))
 					{
 						trigger_error(sprintf(
-							$language->lang('ACP_MARTTIPHPBB_EXTRAJAVASCRIPT_FILE_NAME_ALREADY_EXISTS'), 
-								$new_file) . 
+							$language->lang('ACP_MARTTIPHPBB_EXTRAJAVASCRIPT_FILE_NAME_ALREADY_EXISTS'),
+								$new_file) .
 									adm_back_link($this->u_action), E_USER_WARNING);
 					}
 
-					if (preg_match('/^[a-z][a-z0-9-]*[a-z0-9]$/', $new_file) !== 1 
+					if (preg_match('/^[a-z][a-z0-9-]*[a-z0-9]$/', $new_file) !== 1
 						|| strpos($new_file, '--') !== false)
 					{
 						trigger_error(sprintf(
-							$language->lang('ACP_MARTTIPHPBB_EXTRAJAVASCRIPT_FILE_NAME_INVALID_FORMAT'), 
-								$new_file) . 
-									adm_back_link($this->u_action), E_USER_WARNING);						
+							$language->lang('ACP_MARTTIPHPBB_EXTRAJAVASCRIPT_FILE_NAME_INVALID_FORMAT'),
+								$new_file) .
+									adm_back_link($this->u_action), E_USER_WARNING);
 					}
 
 					$store->set_file($new_file, crc32(''), '', '');
@@ -170,8 +170,8 @@ class main_module
 					if (!in_array($file_to_delete, array_keys($files)))
 					{
 						trigger_error(sprintf(
-							$language->lang('ACP_MARTTIPHPBB_EXTRAJAVASCRIPT_FILE_DOES_NOT_EXIST'), 
-								$file_to_delete) . adm_back_link($this->u_action), 
+							$language->lang('ACP_MARTTIPHPBB_EXTRAJAVASCRIPT_FILE_DOES_NOT_EXIST'),
+								$file_to_delete) . adm_back_link($this->u_action),
 									E_USER_WARNING);
 					}
 
@@ -180,7 +180,7 @@ class main_module
 						$store->delete_file($file_to_delete);
 
 						trigger_error(sprintf(
-							$language->lang('ACP_MARTTIPHPBB_EXTRAJAVASCRIPT_FILE_DELETED'), 
+							$language->lang('ACP_MARTTIPHPBB_EXTRAJAVASCRIPT_FILE_DELETED'),
 								$file_to_delete) . adm_back_link($this->u_action));
 					}
 
@@ -189,8 +189,8 @@ class main_module
 						'delete'	=> [$file_to_delete => 1],
 					];
 
-					confirm_box(false, 
-						sprintf($language->lang('ACP_MARTTIPHPBB_EXTRAJAVASCRIPT_FILE_DELETE_CONFIRM'), 
+					confirm_box(false,
+						sprintf($language->lang('ACP_MARTTIPHPBB_EXTRAJAVASCRIPT_FILE_DELETE_CONFIRM'),
 							$file_to_delete), build_hidden_fields($s_hidden_fields));
 				}
 
@@ -204,9 +204,9 @@ class main_module
 					]);
 				}
 
-			break;		
+			break;
 		}
 
-		$template->assign_var('U_ACTION', $this->u_action);		
+		$template->assign_var('U_ACTION', $this->u_action);
 	}
 }

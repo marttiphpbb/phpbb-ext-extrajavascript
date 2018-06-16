@@ -15,15 +15,9 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class listener implements EventSubscriberInterface
 {
-	/** @var store */
 	protected $store;
-
-	/** @var helper */
 	protected $helper;
 
-	/**
-	 * @param store
-	*/
 	public function __construct(helper $helper, store $store)
 	{
 		$this->helper = $helper;
@@ -54,7 +48,7 @@ class listener implements EventSubscriberInterface
 		{
 			$params = [
 				'id'		=> $file_id,
-				'v'			=> $version,	
+				'v'			=> $version,
 			];
 
 			$files[] = $this->helper->route('marttiphpbb_extrajavascript_render_controller', $params);
@@ -62,5 +56,5 @@ class listener implements EventSubscriberInterface
 
 		$context['marttiphpbb_extrajavascript'] = $files;
 		$event['context'] = $context;
-	}		
+	}
 }
