@@ -9,7 +9,6 @@
 namespace marttiphpbb\extrajavascript\controller;
 
 use phpbb\request\request;
-use phpbb\controller\helper;
 use marttiphpbb\extrajavascript\service\store;
 use Symfony\Component\HttpFoundation\Response;
 

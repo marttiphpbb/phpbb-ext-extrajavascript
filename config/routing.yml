@@ -1,5 +1,5 @@
 marttiphpbb_extrajavascript_render_controller:
-    pattern: /extrajavascript/{id}__js
+    path: /extrajavascript/{id}__js
     defaults: { _controller: marttiphpbb.extrajavascript.controller:render }
     requirements:
         _method: GET
