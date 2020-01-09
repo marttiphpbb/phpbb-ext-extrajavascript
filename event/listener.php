@@ -24,7 +24,7 @@ class listener implements EventSubscriberInterface
 		$this->store = $store;
 	}
 
-	static public function getSubscribedEvents()
+	static public function getSubscribedEvents():array
 	{
 		return [
 			'core.twig_environment_render_template_before'
@@ -32,7 +32,7 @@ class listener implements EventSubscriberInterface
 		];
 	}
 
-	public function core_twig_environment_render_template_before(event $event)
+	public function core_twig_environment_render_template_before(event $event):void
 	{
 		$context = $event['context'];
 

@@ -11,12 +11,12 @@ use marttiphpbb\extrajavascript\util\cnst;
 
 class main_info
 {
-	function module()
+	function module():array
 	{
 		return [
 			'filename'	=> '\marttiphpbb\extrajavascript\acp\main_module',
 			'title'		=> cnst::L_ACP,
-			'modes'		=> [			
+			'modes'		=> [
 				'files'	=> [
 					'title'	=> cnst::L_ACP . '_FILES',
 					'auth'	=> 'ext_marttiphpbb/extrajavascript && acl_a_board',
@@ -26,7 +26,7 @@ class main_info
 					'title'	=> cnst::L_ACP . '_EDIT',
 					'auth'	=> 'ext_marttiphpbb/extrajavascript && acl_a_board',
 					'cat'	=> [cnst::L_ACP],
-				],										
+				],
 			],
 		];
 	}
