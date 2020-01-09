@@ -11,7 +11,7 @@ use phpbb\extension\base;
 
 class ext extends base
 {
-	public function is_enableable()
+	public function is_enableable():bool
 	{
 		$config = $this->container->get('config');
 		return phpbb_version_compare($config['version'], '3.3.0', '>=')

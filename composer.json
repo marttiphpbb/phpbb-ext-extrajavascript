@@ -3,8 +3,8 @@
 	"type": "phpbb-extension",
 	"description": "Extra Javascript Extension for phpBB 3.3",
 	"homepage": "https://github.com/marttiphpbb/phpbb-ext-extrajavascript",
-	"version": "0.1.1",
-	"time": "2018-05-31",
+	"version": "0.2.0",
+	"time": "2020-01-09",
 	"license": "GPL-2.0",
 	"authors": [{
 			"name": "martti",
