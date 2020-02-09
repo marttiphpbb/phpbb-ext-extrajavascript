@@ -5,7 +5,7 @@
 	"homepage": "https://github.com/marttiphpbb/phpbb-ext-extrajavascript",
 	"version": "0.2.0",
 	"time": "2020-01-09",
-	"license": "GPL-2.0",
+	"license": "GPL-2.0-only",
 	"authors": [{
 			"name": "martti",
 			"email": "info@martti.be",
